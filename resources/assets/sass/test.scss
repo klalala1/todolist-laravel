@@ -1,0 +1,5 @@
+$theme-colors: (
+  "test": linear-gradient(34deg, rgba(2,0,36,1) 0%, rgba(121,75,9,1) 0%, rgba(67,41,21,1) 40%, rgba(0,0,0,1) 100%)
+);
+@import 'node_modules/bootstrap/scss/bootstrap';
+@import 'node_modules/bootstrap-vue/src/index.scss';
