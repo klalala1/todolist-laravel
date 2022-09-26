@@ -4,11 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
-use Exception;
+
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
-use Throwable;
-use Illuminate\Validation\ValidationException;
+
 
 class AuthController extends Controller
 {

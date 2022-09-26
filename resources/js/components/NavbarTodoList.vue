@@ -18,7 +18,7 @@
 
                 <!-- Right aligned nav items -->
                 <b-navbar-nav class="ml-auto">
-                    <b-nav-item-dropdown right>
+                    <b-nav-item-dropdown right style="z-index: 100000000000">
                         <!-- Using 'button-content' slot -->
 
                         <!-- <b-dropdown-item @click="completed()"

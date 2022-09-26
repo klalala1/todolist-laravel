@@ -51,33 +51,7 @@
                             </b-form-group>
                         </b-dropdown-form>
                         <b-dropdown-divider></b-dropdown-divider>
-                        <!-- <b-dropdown-item-button
-                            v-for="option in availableOptions"
-                            :key="option"
-                            @click="onOptionClick({ option, addTag })"
-                            style="
-                                text-overflow: ellipsis;
-                                white-space: nowrap;
-                                text-overflow: ellipsis;
-                                white-space: nowrap;
-                                display: flex;
-                                flex-direction: row;
-                                justify-content: flex-start;
-                            "
-                        >
-                            {{ option }}
-                        </b-dropdown-item-button> -->
-                        <!-- <b-button
-                            class="create-tag-button"
-                            @click="createTag(search)"
-                         
-                            v-if="
-                                availableOptions.length === 0 &&
-                                search.length > 0
-                            "
-                        >
-                            Create tag {{ search }}
-                        </b-button> -->
+
                         <b-button
                             class="create-tag-button"
                             @click="addTags(addTag, search)"

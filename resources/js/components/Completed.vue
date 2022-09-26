@@ -1,5 +1,5 @@
 <template>
-    <span>
+    <span style="z-index: 10000000000000000000">
         <b-dropdown-item v-b-modal.modal-xl @click="fetchCompleted()"
             >Completed</b-dropdown-item
         >
@@ -114,7 +114,6 @@ export default {
                 });
         },
     },
-    mounted() {},
 };
 </script>
 

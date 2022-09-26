@@ -4,14 +4,14 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Access\AuthorizationException;
+
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Crypt;
-use App\Listensers\LogVerifiedUser;
+
 
 /**
  * @group Auth endpoints

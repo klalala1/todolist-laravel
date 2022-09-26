@@ -10,13 +10,9 @@
 </template>
 
 <script>
-import TestTest from "../pages/HomePageold.vue";
-
 export default {
     name: "App",
-    components: {
-        TestTest,
-    },
+    components: {},
 };
 </script>
 

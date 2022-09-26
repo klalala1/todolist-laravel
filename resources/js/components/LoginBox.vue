@@ -134,7 +134,6 @@ export default {
                     password: this.password,
                 })
                 .then(async (res) => {
-                    console.log(res);
                     await this.$router.push("/HomePage");
                 })
                 .catch((err) => {
@@ -152,4 +151,10 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped></style>
+<style scoped>
+.card-body {
+    flex: 1 1 auto !important;
+    min-height: 1px !important;
+    padding: 1.25rem !important;
+}
+</style>

@@ -28,20 +28,7 @@ class Item extends Model
         try {
 
 
-            // $dataList = $this->all();
-
-            // $items->push(['item' => $this->where([['username', '=', $username], ['completed', '=', false]])->whereDate('due_dates', '<', Carbon::today())->orderBy('created_at', 'DESC')->get(), 'due' => 'overdued']);
-            // $items->push(['item' => $this->where([['username', '=', $username], ['completed', '=', false]])->whereDate('due_dates', Carbon::today())->orderBy('created_at', 'DESC')->get(), 'due' => 'today']);
-            // $items->push(['item' => $this->where([['username', '=', $username], ['completed', '=', false]])->whereDate('due_dates', '<=', Carbon::now()->endOfWeek())->whereDate('due_dates', '>', Carbon::today())->orderBy('created_at', 'DESC')->get(), 'due' => 'week']);
-            // $items->push(['item' => $this->where([['username', '=', $username], ['completed', '=', false]])->whereDate('due_dates', '>',  Carbon::now()->endOfWeek())->orderBy('created_at', 'DESC')->get(), 'due' => 'later']);
-
-            // $items.put('week',$this->where([['username', '=', $username], ['completed', '=', false]])->orderBy('created_at', 'DESC')->get();) 
             $items = $this->where([['username', '=', $username], ['completed', '=', false]])->orderBy('due_dates', 'ASC')->get();
-
-            // return $this->where([['username', '=', $username], ['completed', '=', false]])->orderBy('created_at', 'DESC')->get();
-
-            // return $this->orderBy('created_at', 'DESC')->get();
-
         } catch (\Throwable $th) {
         }
 
@@ -61,17 +48,24 @@ class Item extends Model
     }
     public function createItem(Request $request)
     {
-        $this->name = $request->item['name'];
-        $this->username = $request->item['username'];
-        $this->description = $request->item['description'];
-        $this->due_dates = $request->item['due_dates'];
-        $this->tags_list = $request->item['tags_list'];
-        $this->update_at = Carbon::now();
-        $this->created_at = Carbon::now();
 
-        $this->save();
-        return $this->where([['username', '=', $this->username], ['completed', '=', false]])->orderBy('created_at', 'DESC')->get();
-        // return $this->where('username', $this->username)->orderBy('created_at', 'DESC')->get();
+        try {
+            if (!$request->item['name'] || $request->item['name'] == '') throw new Exception('Todo name cannot be null', 404);
+
+            $this->name = $request->item['name'];
+            $this->username = $request->item['username'];
+            $this->description = $request->item['description'];
+            $this->due_dates = $request->item['due_dates'];
+            $this->tags_list = $request->item['tags_list'];
+            $this->update_at = Carbon::now();
+            $this->created_at = Carbon::now();
+
+            $this->save();
+            return $this->where([['username', '=', $this->username], ['completed', '=', false]])->orderBy('created_at', 'DESC')->get();
+            // return $this->where('username', $this->username)->orderBy('created_at', 'DESC')->get();
+        } catch (Throwable $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
     }
     public function updateItem($id)
     {

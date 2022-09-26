@@ -3,34 +3,53 @@
         <b-form-datepicker
             id="example-datepicker"
             v-model="dateValue"
+            :min="min"
             class="input-todo-date"
         ></b-form-datepicker>
+        <b-list-group
+            style="
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+            "
+        >
+            <b-list-group-item style="font-size: 26px; font-weight: 700">
+                <b-form-input
+                    shadow-none
+                    class="input-todolist"
+                    id="input-todo-name"
+                    v-model="todoName"
+                    placeholder="Enter Name"
+                    required
+                >
+                </b-form-input
+            ></b-list-group-item>
+            <b-list-group-item style="font-size: 26px; font-weight: 700">
+                <b-form-input
+                    shadow-none
+                    class="input-todolist"
+                    id="input-todo-description"
+                    v-model="todoDescription"
+                    placeholder="Enter Description"
+                >
+                </b-form-input></b-list-group-item
+        ></b-list-group>
 
-        <b-form-input
-            shadow-none
-            class="input-todolist"
-            id="input-todo-name"
-            v-model="todoName"
-            placeholder="Enter Name"
-            required
-        >
-        </b-form-input
-        ><b-form-input
-            shadow-none
-            class="input-todolist"
-            id="input-todo-description"
-            v-model="todoDescription"
-            placeholder="Enter Description"
-        >
-        </b-form-input>
         <TodoListTags
             :chosedTag="this.item ? this.item.tags_list : []"
         ></TodoListTags>
         <span class="add-todo-button-row">
-            <b-button class="submit-adding-button" @click="submit()"
-                >Add task</b-button
+            <b-button
+                class="submit-adding-button"
+                :disabled="todoName == ''"
+                @click="submit()"
             >
-            <b-button class="cancel-adding-button" @click="cancelAdding()"
+                {{
+                    `${this.$store.state.items.add ? "Add task" : "Confirm"}`
+                }}</b-button
+            >
+
+            <b-button class="submit-adding-button" @click="cancelAdding()"
                 >Cancel</b-button
             ></span
         >
@@ -54,6 +73,7 @@ export default {
             dateValue: null,
             userTodoList: null,
             timeValue: null,
+            min: null,
         };
     },
     methods: {
@@ -107,10 +127,21 @@ export default {
         },
     },
     mounted() {
+        const now = new Date();
+        const today = new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate()
+        );
+        const minDate = new Date(today);
+        minDate.setMonth(minDate.getMonth());
+        minDate.setDate(minDate.getDate());
+        this.min = minDate;
         if (this.item) {
             this.todoName = this.item.name;
             this.todoDescription = this.item.description;
             this.dateValue = this.item.due_dates;
+            this.tags_list = this.$store.state.tags.chosedtag;
             if (this.item.tags_list)
                 this.$store.commit("tags/setTag", this.item.tags_list);
         } else if (this.addDate) {
@@ -128,5 +159,9 @@ export default {
 .alert {
     border: 2px solid red;
     padding: 10px;
+}
+.btn.disabled,
+.btn:disabled {
+    opacity: 0.25;
 }
 </style>

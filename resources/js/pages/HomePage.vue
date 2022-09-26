@@ -2,7 +2,15 @@
     <div class="home-container">
         <NavbarTodoList></NavbarTodoList>
         <div class="todo-holder">
-            <span style="position: fixed">
+            <span
+                style="
+                    position: fixed;
+                    width: 100%;
+                    top: 56px;
+                    backdrop-filter: blur(12px);
+                    z-index: 100;
+                "
+            >
                 <div class="alert alert-success" role="alert" v-if="success">
                     {{ success }}
                 </div>
@@ -68,6 +76,11 @@
                     Test
                 </button> -->
             </span>
+            <div
+                class="aaa"
+                v-show="$store.state.items.add == 'add'"
+                style="height: 300px"
+            ></div>
             <TodoTools></TodoTools>
         </div>
     </div>
@@ -135,19 +148,21 @@ export default {
     },
     mounted() {
         // console.log("mount");
-        // if (localStorage.getItem("authToken")) {
-        // console.log("test");
-        // console.log(localStorage.getItem("authToken"));
-        this.$store
-            .dispatch("user/getUserData")
-            .then(async (res) => {
-                this.getItems();
-            })
-            .catch(
-                (err) => {}
-                //  console.log(err)
-            );
-        // }
+        if (localStorage.getItem("authToken")) {
+            // console.log("test");
+            // console.log(localStorage.getItem("authToken"));
+            this.$store
+                .dispatch("user/getUserData")
+                .then(async (res) => {
+                    this.getItems();
+                })
+                .catch(
+                    (err) => {}
+                    //  console.log(err)
+                );
+        } else {
+            this.$router.push("/");
+        }
     },
     updated() {
         // console.log("->>", this.$store.state.userData);
@@ -155,8 +170,21 @@ export default {
 };
 </script>
 <style lang="scss">
+html,
+body,
+html * {
+    font-family: Poppins !important;
+    transition: width 1s;
+}
 .home-container {
-    margin-top: 100px;
+    height: 100vh;
+    width: 100%;
+
+    background: linear-gradient(
+        90deg,
+        hsla(0, 0%, 99%, 1) 0%,
+        hsla(0, 0%, 100%, 1) 100%
+    );
 }
 .todo-holder {
     animation: fadeIn 2s;
